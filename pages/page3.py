@@ -1,13 +1,11 @@
 import streamlit as st
 import numpy as np
 import matplotlib.pyplot as plt
-
-import matplotlib.pyplot as plt
 import matplotlib.font_manager as fm
 import os
 
 # ✅ 사용자 지정 한글 폰트 경로 설정
-font_path = '/workspaces/blankapp20250721/fonts/나눔 글꼴/나눔고딕/NanumFontSetup_TTF_GOTHIC/NanumGothic.ttf'
+font_path = './fonts/나눔 글꼴/나눔고딕/NanumFontSetup_TTF_GOTHIC/NanumGothic.ttf'
 
 # ✅ 폰트 등록 및 설정
 if os.path.exists(font_path):
