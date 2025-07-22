@@ -1,42 +1,34 @@
 import streamlit as st
-
-st.title("🎈 My new app")
-st.write(
-    "Let's start building! For help and inspiration, head over to [docs.streamlit.io](https://docs.streamlit.io/)."
-)
-import streamlit as st
 import pandas as pd
-import numpy as np
-import time  # 지연을 주기 위해 필요
+import matplotlib.pyplot as plt
 
-# 제목과 설명
-st.title("🌟 Streamlit 요소 총집합 데모")
-st.header("👨‍🏫 잘생긴 선생님의 멋진 앱")
-st.subheader("🧪 이 페이지는 Streamlit의 거의 모든 주요 구성요소를 보여줍니다.")
-st.caption("버전 1.0 | Made with ❤️ by 잘생긴 선생님")
+# 한글 폰트 설정 (matplotlib용)
+plt.rcParams['font.family'] = 'Malgun Gothic'
+ 
+# 데이터 정의
+data = {
+    "이름": ["홍길동", "김영희", "이철수", "박민수", "최지은"],
+    "수학": [85, 90, 70, 95, 60],
+    "영어": [78, 88, 65, 92, 72],
+    "과학": [92, 84, 75, 89, 68]
+}
 
-# 텍스트 관련 요소
-st.text("📌 간단한 텍스트입니다.")
-st.markdown("**✅ 굵은 글자**, _기울임_, `코드`, [링크](https://streamlit.io)")
+df = pd.DataFrame(data)
 
-# 코드 블록
-code = '''def say_hello():
-    print("Hello, 잘생긴 선생님!")'''
-st.code(code, language='python')
+# 제목
+st.title("학생 성적 시각화")
 
-# 라디오 버튼
-option = st.radio("1️⃣ 당신의 역할은?", ["학생", "교사", "학부모"])
-st.write("선택한 역할:", option)
+# 표 보여주기
+st.subheader("📋 성적 데이터")
+st.dataframe(df)
 
-# 체크박스
-agree = st.checkbox("2️⃣ 동의합니다")
-if agree:
-    st.success("✅ 동의해 주셔서 감사합니다.")
+# 과목별 평균 점수 막대그래프
+st.subheader("📊 과목별 평균 점수")
 
-# 슬라이더
-level = st.slider("3️⃣ 난이도를 선택하세요", 1, 10, 5)
-st.write("선택한 난이도:", level)
+mean_scores = df[["수학", "영어", "과학"]].mean()
+fig, ax = plt.subplots()
+ax.bar(mean_scores.index, mean_scores.values, color=["skyblue", "lightgreen", "salmon"])
+ax.set_ylabel("점수")
+ax.set_title("과목별 평균 점수")
 
-# 셀렉트 박스
-subject = st.selectbox("4️⃣ 과목을 선택하세요", ["수학", "과학", "영어"])
-st.write("선택한 과목:", subject)
+st.pyplot(fig)
